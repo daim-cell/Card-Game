@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var p_card = "back"
+    @State var cpu_card = "back"
+    @State var p_score = 0
+    @State var cpu_score = 0
+    
     var body: some View {
         ZStack{
             Image("background-cloth")
@@ -19,27 +24,32 @@ struct ContentView: View {
                 Spacer()
                 HStack{
                     Spacer()
-                    Image("back")
+                    Image(p_card)
                     Spacer()
-                    Image("back")
+                    Image(cpu_card)
                     Spacer()
                 }
                 Spacer()
-                Button("Deal"){
-                    
+                Button{
+                    deal()
                 }
+                label:{
+                    Image("button")
+                }.foregroundColor(.black)
+                
                 Spacer()
+                
                 HStack{
                     Spacer()
                     VStack{
                         Text("Player")
-                        Text("0")
+                        Text(String(p_score))
                     }
                     .font(.title)
                     Spacer()
                     VStack{
                         Text("CPU")
-                        Text("0")
+                        Text(String(cpu_score))
                     }
                     .font(.title)
                 Spacer()
@@ -47,6 +57,21 @@ struct ContentView: View {
                 Spacer()
             }
         }
+    }
+    
+    func deal(){
+        let playerNum = Int.random(in: 0..<13)+2
+        let cpuNum = Int.random(in: 0..<13)+2
+        
+        if (playerNum>cpuNum){
+            p_score += 1
+        }
+        else if(cpuNum>playerNum){
+            cpu_score += 1
+        }
+        
+        p_card = "card" + String(playerNum)
+        cpu_card = "card" + String(cpuNum)
     }
 }
 
